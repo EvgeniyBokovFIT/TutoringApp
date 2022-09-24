@@ -1,0 +1,13 @@
+package evgapp.tutoringapp;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class TutoringAppApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(TutoringAppApplication.class, args);
+    }
+
+}
