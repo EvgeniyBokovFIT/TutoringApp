@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.mail.MessagingException;
+import java.io.IOException;
 
 
 @CrossOrigin(origins = "*", maxAge = 3500)
@@ -27,7 +28,7 @@ public class TutorController {
         try {
             dataCheckService.checkData(tutorInfo.getPhoneNumber(), tutorInfo.getMail());
             tutorService.sendEmailWithRequest(tutorInfo);
-        } catch (MailException | PhoneNumberException | MessagingException e) {
+        } catch (MailException | PhoneNumberException | MessagingException | IOException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
         return ResponseEntity.ok("Заявка успешно отправлена");

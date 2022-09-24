@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
+import java.io.IOException;
 
 @Service
 public class TutorService {
@@ -12,7 +13,7 @@ public class TutorService {
     @Autowired
     MailSenderService mailSenderService;
 
-    public void sendEmailWithRequest(TutorInfoDTO tutorInfo) throws MessagingException {
+    public void sendEmailWithRequest(TutorInfoDTO tutorInfo) throws MessagingException, IOException {
         String body = String.format(
                 "Здравствуйте! \n" +
                         "Появилась новая заявка: \n" +
@@ -31,6 +32,6 @@ public class TutorService {
 
         String subject = "Заявка от преподавателя " + tutorInfo.getFirstName() + " " + tutorInfo.getLastName();
 
-        mailSenderService.sendMailWithAttachment(body, subject, null);
+        mailSenderService.sendMailWithAttachment(body, subject, tutorInfo.getFiles());
     }
 }

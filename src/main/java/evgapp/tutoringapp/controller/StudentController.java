@@ -8,13 +8,14 @@ import evgapp.tutoringapp.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
 
 @CrossOrigin(origins = "*", maxAge = 3500)
 @RestController
+@ControllerAdvice
 @RequestMapping("/student")
 public class StudentController {
 
@@ -25,15 +26,20 @@ public class StudentController {
     DataCheckService dataCheckService;
 
     @PostMapping()
-    public ResponseEntity<?> handleOrder(@RequestPart StudentInfoDTO studentInfo, @RequestPart("file")MultipartFile file) {
+    public ResponseEntity<?> handleOrder(@ModelAttribute StudentInfoDTO studentInfo) {
 
         try {
             dataCheckService.checkData(studentInfo.getPhoneNumber(), studentInfo.getMail());
-            studentService.sendEmailWithOrder(file, studentInfo);
+            studentService.sendEmailWithOrder(studentInfo);
         } catch (IOException | MessagingException | PhoneNumberException | MailException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
 
         return ResponseEntity.ok("Заявка успешно отправлена");
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<?> handleFileUploadError() {
+        return ResponseEntity.badRequest().body("Максимальный размер файла 20MB");
     }
 }

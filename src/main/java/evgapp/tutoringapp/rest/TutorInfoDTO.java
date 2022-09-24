@@ -1,5 +1,9 @@
 package evgapp.tutoringapp.rest;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+
 public class TutorInfoDTO {
     private String firstName;
     private String lastName;
@@ -8,16 +12,19 @@ public class TutorInfoDTO {
     private String discipline;
     private String description;
 
+    private List<MultipartFile> files;
+
     public TutorInfoDTO() {
     }
 
-    public TutorInfoDTO(String firstName, String lastName, String mail, String phoneNumber, String discipline, String description) {
+    public TutorInfoDTO(String firstName, String lastName, String mail, String phoneNumber, String discipline, String description, List<MultipartFile> files) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.mail = mail;
         this.phoneNumber = phoneNumber;
         this.discipline = discipline;
         this.description = description;
+        this.files = files;
     }
 
     public String getFirstName() {
@@ -68,4 +75,11 @@ public class TutorInfoDTO {
         this.description = description;
     }
 
+    public List<MultipartFile> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<MultipartFile> files) {
+        this.files = files;
+    }
 }
