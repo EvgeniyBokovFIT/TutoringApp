@@ -33,7 +33,6 @@ public class MailSenderService {
         mimeMessage.setText(body);
         mimeMessageHelper.setSubject(subject);
 
-
         if(attachmentPath != null) {
             FileSystemResource fileSystemResource = new FileSystemResource(new File(attachmentPath));
             mimeMessageHelper.addAttachment(Objects.requireNonNull(fileSystemResource.getFilename()), fileSystemResource);

@@ -9,7 +9,12 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.mail.MessagingException;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Objects;
+
+import static java.nio.file.Files.copy;
+import static java.nio.file.Paths.get;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 @Service
 public class StudentService {
@@ -17,13 +22,15 @@ public class StudentService {
     @Autowired
     MailSenderService mailSenderService;
 
+    public static final String DIRECTORY = System.getProperty("user.home") + File.separator + "Downloads" + File.separator + "uploads" + File.separator;
+
     public void sendEmailWithOrder(MultipartFile file, StudentInfoDTO studentInfo) throws IOException, MessagingException {
         String attachmentPath = null;
         if(file != null) {
-            String fileSeparator = File.separator;
             String filename = file.getOriginalFilename();
-            file.transferTo(new File(System.getProperty("user.home") + "Downloads" + fileSeparator + "uploads" + fileSeparator + filename));
-            attachmentPath = System.getProperty("user.home") + "Downloads" + fileSeparator + "uploads" + fileSeparator + filename;
+            Path fileStorage = get(DIRECTORY, filename).toAbsolutePath().normalize();
+            copy(file.getInputStream(), fileStorage, REPLACE_EXISTING);
+            attachmentPath = DIRECTORY + filename;
         }
 
 
