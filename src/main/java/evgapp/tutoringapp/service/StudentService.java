@@ -3,11 +3,13 @@ package evgapp.tutoringapp.service;
 import evgapp.tutoringapp.rest.StudentInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 @Service
 public class StudentService {
@@ -16,8 +18,14 @@ public class StudentService {
     MailSenderService mailSenderService;
 
     public void sendEmailWithOrder(MultipartFile file, StudentInfoDTO studentInfo) throws IOException, MessagingException {
-        String filename = file.getOriginalFilename();
-        file.transferTo(new File("C:\\upload\\" + filename));
+        String attachmentPath = null;
+        if(file != null) {
+            String fileSeparator = File.separator;
+            String filename = file.getOriginalFilename();
+            file.transferTo(new File(System.getProperty("user.home") + "Downloads" + fileSeparator + "uploads" + fileSeparator + filename));
+            attachmentPath = System.getProperty("user.home") + "Downloads" + fileSeparator + "uploads" + fileSeparator + filename;
+        }
+
 
         String body = String.format(
                 "Здравствуйте! \n" +
@@ -35,7 +43,7 @@ public class StudentService {
 
         String subject = "Заказ от студента " + studentInfo.getFirstName() + " " + studentInfo.getLastName();
 
-        String attachmentPath = "C:\\upload\\" + filename;
+
 
         mailSenderService.sendMailWithAttachment(body, subject, attachmentPath);
     }

@@ -1,6 +1,9 @@
 package evgapp.tutoringapp.controller;
 
+import evgapp.tutoringapp.exception.MailException;
+import evgapp.tutoringapp.exception.PhoneNumberException;
 import evgapp.tutoringapp.rest.StudentInfoDTO;
+import evgapp.tutoringapp.service.DataCheckService;
 import evgapp.tutoringapp.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +21,16 @@ public class StudentController {
     @Autowired
     StudentService studentService;
 
+    @Autowired
+    DataCheckService dataCheckService;
+
     @PostMapping()
-    public ResponseEntity<?> handleOrder(@RequestPart StudentInfoDTO request, @RequestPart("file")MultipartFile file) {
+    public ResponseEntity<?> handleOrder(@RequestPart StudentInfoDTO studentInfo, @RequestPart("file")MultipartFile file) {
 
         try {
-            studentService.sendEmailWithOrder(file, request);
-        } catch (IOException | MessagingException e) {
+            dataCheckService.checkData(studentInfo.getPhoneNumber(), studentInfo.getMail());
+            studentService.sendEmailWithOrder(file, studentInfo);
+        } catch (IOException | MessagingException | PhoneNumberException | MailException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
 
