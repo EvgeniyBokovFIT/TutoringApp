@@ -5,10 +5,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public class TutorInfoDTO {
-    private String firstName;
-    private String lastName;
+    private String name;
+    private String surname;
     private String mail;
-    private String phoneNumber;
+    private String phone;
     private String discipline;
     private String description;
 
@@ -17,30 +17,30 @@ public class TutorInfoDTO {
     public TutorInfoDTO() {
     }
 
-    public TutorInfoDTO(String firstName, String lastName, String mail, String phoneNumber, String discipline, String description, List<MultipartFile> files) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public TutorInfoDTO(String name, String surname, String mail, String phone, String discipline, String description, List<MultipartFile> files) {
+        this.name = name;
+        this.surname = surname;
         this.mail = mail;
-        this.phoneNumber = phoneNumber;
+        this.phone = phone;
         this.discipline = discipline;
         this.description = description;
         this.files = files;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getSurname() {
+        return surname;
     }
 
     public String getMail() {
         return mail;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone() {
+        return phone;
     }
 
     public String getDiscipline() {
@@ -51,20 +51,20 @@ public class TutorInfoDTO {
         return description;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public void setMail(String mail) {
         this.mail = mail;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public void setDiscipline(String discipline) {

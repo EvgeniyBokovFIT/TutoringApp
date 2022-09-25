@@ -22,15 +22,15 @@ public class TutorService {
                         "Номер телефона: %s \n" +
                         "Дисциплина: %s \n" +
                         "Описание: %s",
-                tutorInfo.getFirstName(),
-                tutorInfo.getLastName(),
+                tutorInfo.getName(),
+                tutorInfo.getSurname(),
                 tutorInfo.getMail(),
-                tutorInfo.getPhoneNumber(),
+                tutorInfo.getPhone(),
                 tutorInfo.getDiscipline(),
                 tutorInfo.getDescription()
         );
 
-        String subject = "Заявка от преподавателя " + tutorInfo.getFirstName() + " " + tutorInfo.getLastName();
+        String subject = "Заявка от преподавателя " + tutorInfo.getName() + " " + tutorInfo.getSurname();
 
         mailSenderService.sendMailWithAttachment(body, subject, tutorInfo.getFiles());
     }

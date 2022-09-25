@@ -26,7 +26,7 @@ public class TutorController {
     @PostMapping()
     public ResponseEntity<?> handleTutorRequest(@RequestBody TutorInfoDTO tutorInfo) {
         try {
-            dataCheckService.checkData(tutorInfo.getPhoneNumber(), tutorInfo.getMail());
+            dataCheckService.checkData(tutorInfo.getPhone(), tutorInfo.getMail());
             tutorService.sendEmailWithRequest(tutorInfo);
         } catch (MailException | PhoneNumberException | MessagingException | IOException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

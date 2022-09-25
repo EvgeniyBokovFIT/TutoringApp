@@ -29,7 +29,7 @@ public class StudentController {
     public ResponseEntity<?> handleOrder(@ModelAttribute StudentInfoDTO studentInfo) {
 
         try {
-            dataCheckService.checkData(studentInfo.getPhoneNumber(), studentInfo.getMail());
+            dataCheckService.checkData(studentInfo.getPhone(), studentInfo.getMail());
             studentService.sendEmailWithOrder(studentInfo);
         } catch (IOException | MessagingException | PhoneNumberException | MailException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

@@ -23,15 +23,15 @@ public class StudentService {
                         "Номер телефона: %s \n" +
                         "Дисциплина: %s \n" +
                         "Описание: %s",
-                studentInfo.getFirstName(),
-                studentInfo.getLastName(),
+                studentInfo.getName(),
+                studentInfo.getSurname(),
                 studentInfo.getMail(),
-                studentInfo.getPhoneNumber(),
+                studentInfo.getPhone(),
                 studentInfo.getDiscipline(),
-                studentInfo.getDescription()
+                studentInfo.getTask()
         );
 
-        String subject = "Заказ от студента " + studentInfo.getFirstName() + " " + studentInfo.getLastName() + " " + studentInfo.getMail();
+        String subject = "Заказ от студента " + studentInfo.getName() + " " + studentInfo.getSurname() + " " + studentInfo.getMail();
 
         mailSenderService.sendMailWithAttachment(body, subject, studentInfo.getFiles());
     }

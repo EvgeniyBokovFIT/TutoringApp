@@ -5,43 +5,41 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public class StudentInfoDTO {
-    private String firstName;
-    private String lastName;
+    private String name;
+    private String surname;
     private String mail;
-    private String phoneNumber;
-    private String description;
+    private String phone;
+    private String task;
     private String discipline;
     private List<MultipartFile> files;
-
-
 
     public StudentInfoDTO() {
     }
 
-    public StudentInfoDTO(String firstName, String lastName, String mail, String phoneNumber, String description, String discipline, List<MultipartFile> files) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public StudentInfoDTO(String name, String surname, String mail, String phone, String task, String discipline, List<MultipartFile> files) {
+        this.name = name;
+        this.surname = surname;
         this.mail = mail;
-        this.phoneNumber = phoneNumber;
-        this.description = description;
+        this.phone = phone;
+        this.task = task;
         this.discipline = discipline;
         this.files = files;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getMail() {
@@ -52,20 +50,20 @@ public class StudentInfoDTO {
         this.mail = mail;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getDescription() {
-        return description;
+    public String getTask() {
+        return task;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setTask(String task) {
+        this.task = task;
     }
 
     public List<MultipartFile> getFiles() {
