@@ -47,20 +47,24 @@ public class MailSenderService {
         mimeMessageHelper.setText(body);
         mimeMessageHelper.setSubject(subject);
 
-        for (var file : files) {
-            String filename = file.getOriginalFilename();
-            Path fileStorage = get(DIRECTORY, filename).toAbsolutePath().normalize();
-            Files.copy(file.getInputStream(), fileStorage, REPLACE_EXISTING);
-            FileSystemResource fileSystemResource = new FileSystemResource(new File(DIRECTORY + filename));
-            mimeMessageHelper.addAttachment(Objects.requireNonNull(fileSystemResource.getFilename()), fileSystemResource);
+        if(files != null) {
+            for (var file : files) {
+                String filename = file.getOriginalFilename();
+                Path fileStorage = get(DIRECTORY, filename).toAbsolutePath().normalize();
+                Files.copy(file.getInputStream(), fileStorage, REPLACE_EXISTING);
+                FileSystemResource fileSystemResource = new FileSystemResource(new File(DIRECTORY + filename));
+                mimeMessageHelper.addAttachment(Objects.requireNonNull(fileSystemResource.getFilename()), fileSystemResource);
+            }
         }
 
         javaMailSender.send(mimeMessage);
 
-        for (var file : files) {
-            String filename = file.getOriginalFilename();
-            Path fileStorage = get(DIRECTORY, filename).toAbsolutePath().normalize();
-            Files.deleteIfExists(fileStorage);
+        if(files != null) {
+            for (var file : files) {
+                String filename = file.getOriginalFilename();
+                Path fileStorage = get(DIRECTORY, filename).toAbsolutePath().normalize();
+                Files.deleteIfExists(fileStorage);
+            }
         }
     }
 }
