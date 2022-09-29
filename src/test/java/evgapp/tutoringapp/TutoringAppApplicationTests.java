@@ -1,10 +1,10 @@
-package evgapp.tutaringapp;
+package evgapp.tutoringapp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TutaringAppApplicationTests {
+class TutoringAppApplicationTests {
 
     @Test
     void contextLoads() {
