@@ -1,5 +1,7 @@
 package evgapp.tutoringapp.service;
 
+import ch.qos.logback.core.util.FileUtil;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
@@ -12,6 +14,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,11 +50,17 @@ public class MailSenderService {
         for (var file : files) {
             String filename = file.getOriginalFilename();
             Path fileStorage = get(DIRECTORY, filename).toAbsolutePath().normalize();
-            copy(file.getInputStream(), fileStorage, REPLACE_EXISTING);
+            Files.copy(file.getInputStream(), fileStorage, REPLACE_EXISTING);
             FileSystemResource fileSystemResource = new FileSystemResource(new File(DIRECTORY + filename));
             mimeMessageHelper.addAttachment(Objects.requireNonNull(fileSystemResource.getFilename()), fileSystemResource);
         }
 
         javaMailSender.send(mimeMessage);
+
+        for (var file : files) {
+            String filename = file.getOriginalFilename();
+            Path fileStorage = get(DIRECTORY, filename).toAbsolutePath().normalize();
+            Files.deleteIfExists(fileStorage);
+        }
     }
 }
