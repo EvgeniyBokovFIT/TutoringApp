@@ -24,7 +24,7 @@ public class TutorController {
     DataCheckService dataCheckService;
 
     @PostMapping()
-    public ResponseEntity<?> handleTutorRequest(@RequestBody TutorInfoDTO tutorInfo) {
+    public ResponseEntity<?> handleTutorRequest(@ModelAttribute TutorInfoDTO tutorInfo) {
         try {
             dataCheckService.checkData(tutorInfo.getPhone(), tutorInfo.getMail());
             tutorService.sendEmailWithRequest(tutorInfo);
